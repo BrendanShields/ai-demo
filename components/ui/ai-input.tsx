@@ -8,7 +8,7 @@ import { useAutoResizeTextarea } from "@/hooks/use-auto-resize-textarea";
 
 const MIN_HEIGHT = 52;
 
-export default function AIInput_01() {
+export default function AIInput({ submit }: { submit: (input: any) => void }) {
     const { textareaRef, adjustHeight } = useAutoResizeTextarea({
         minHeight: MIN_HEIGHT,
         maxHeight: 200,
@@ -48,6 +48,7 @@ export default function AIInput_01() {
                         if (e.key === "Enter" && !e.shiftKey) {
                             e.preventDefault();
                             handleReset();
+                            submit(inputValue);
                         }
                     }}
                 />
@@ -61,7 +62,10 @@ export default function AIInput_01() {
                     <Mic className="w-4 h-4 text-black/70 dark:text-white/70" />
                 </div>
                 <button
-                    onClick={handleReset}
+                    onClick={() => {
+                        handleReset();
+                        submit(inputValue);
+                    }}
                     type="button"
                     className={cn(
                         "absolute top-1/2 -translate-y-1/2 rounded-xl bg-black/5 dark:bg-white/5 py-1 px-1 transition-all duration-700",

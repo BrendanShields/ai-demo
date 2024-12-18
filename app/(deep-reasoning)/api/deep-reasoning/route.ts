@@ -1,6 +1,10 @@
-import { openai } from "@ai-sdk/openai";
+import { createOpenAI } from "@ai-sdk/openai";
 import { convertToCoreMessages, streamText } from "ai";
 import { z } from "zod";
+
+const openai = createOpenAI({
+  apiKey: "",
+});
 
 export async function POST(request: Request) {
   const { messages } = await request.json();
