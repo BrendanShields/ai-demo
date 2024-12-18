@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 const openai = createOpenAI({
     apiKey: "",
-  });
+});
 
 export const artifactResponseSchema = z.object({
     artifact: z.string().describe('Only the react code for the artifact, no other text or comments, include imports, use inline styles and generate mock data'),
@@ -26,7 +26,7 @@ Always structure your response as valid TypeScript/React code that can be direct
 
 export async function POST(req: Request) {
     const context = await req.json();
-    
+
     const result = streamObject({
         model: openai('gpt-4-turbo'),
         schema: artifactResponseSchema,
@@ -34,4 +34,4 @@ export async function POST(req: Request) {
     });
 
     return result.toTextStreamResponse();
-} 
+}
